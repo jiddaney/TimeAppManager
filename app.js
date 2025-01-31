@@ -112,5 +112,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('startTimer').innerHTML = '<i class="bi bi-play-fill"></i> Start';
         updateTimerDisplay();
     }
+    function updateTimerDisplay() {
+        const minutes = String(currentTimer.minutes).padStart(2, '0');
+        const seconds = String(currentTimer.seconds).padStart(2, '0');
+        document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+    }
 
 });
