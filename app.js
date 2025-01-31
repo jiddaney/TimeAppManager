@@ -104,4 +104,13 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('startTimer').innerHTML = '<i class="bi bi-play-fill"></i> Start';
         }
     }
+    function resetTimer() {
+        clearInterval(currentTimer.interval);
+        currentTimer.minutes = currentTimer.defaultDuration;
+        currentTimer.seconds = 0;
+        currentTimer.isRunning = false;
+        document.getElementById('startTimer').innerHTML = '<i class="bi bi-play-fill"></i> Start';
+        updateTimerDisplay();
+    }
+
 });
