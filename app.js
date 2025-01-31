@@ -163,7 +163,38 @@ document.addEventListener('DOMContentLoaded', function() {
             renderTasks();
         }
     }
+    document.getElementById('taskForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const description = document.getElementById('taskInput').value.trim();
+        const priority = document.getElementById('priorityInput').value;
+        if (description && priority) {
+            addTask(description, priority);
+            this.reset();
+        }
+    });
 
+    document.getElementById('saveEditTask').addEventListener('click', function() {
+        const taskId = parseInt(document.getElementById('editTaskId').value);
+        const newDescription = document.getElementById('editTaskInput').value.trim();
+        const newPriority = document.getElementById('editPriorityInput').value;
+        
+        if (newDescription && newPriority) {
+            updateTask(taskId, newDescription, newPriority);
+            editTaskModal.hide();
+        }
+    });
+
+    document.getElementById('startTimer').addEventListener('click', startTimer);
+    document.getElementById('resetTimer').addEventListener('click', resetTimer);
+
+    // Initialize
+    loadTasksFromLocalStorage();
+    updateTimerDisplay();
+
+    // Expose functions to window for onclick handlers
+    window.deleteTask = deleteTask;
+    window.editTask = editTask;
+    window.toggleTaskComplete = toggleTaskComplete;
 
 
 });
