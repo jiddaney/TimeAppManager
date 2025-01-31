@@ -53,4 +53,55 @@ document.addEventListener('DOMContentLoaded', function() {
             editTaskModal.show();
         }
     }
+
+    function updateTask(taskId, newDescription, newPriority) {
+        const taskIndex = tasks.findIndex(t => t.id === taskId);
+        if (taskIndex !== -1) {
+            tasks[taskIndex] = {
+                ...tasks[taskIndex],
+                description: newDescription,
+                priority: newPriority
+            };
+            renderTasks();
+            saveTasksToLocalStorage();
+        }
+    }
+
+    function toggleTaskComplete(taskId) {
+        const taskIndex = tasks.findIndex(t => t.id === taskId);
+        if (taskIndex !== -1) {
+            tasks[taskIndex].completed = !tasks[taskIndex].completed;
+            renderTasks();
+            saveTasksToLocalStorage();
+        }
+    }
+
+    // Timer Functions
+    function startTimer() {
+        if (!currentTimer.isRunning) {
+            currentTimer.isRunning = true;
+            document.getElementById('startTimer').innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
+            
+            currentTimer.interval = setInterval(() => {
+                if (currentTimer.seconds === 0) {
+                    if (currentTimer.minutes === 0) {
+                        clearInterval(currentTimer.interval);
+                        currentTimer.isRunning = false;
+                        alert('Time is up!');
+                        resetTimer();
+                        return;
+                    }
+                    currentTimer.minutes--;
+                    currentTimer.seconds = 59;
+                } else {
+                    currentTimer.seconds--;
+                }
+                updateTimerDisplay();
+            }, 1000);
+        } else {
+            clearInterval(currentTimer.interval);
+            currentTimer.isRunning = false;
+            document.getElementById('startTimer').innerHTML = '<i class="bi bi-play-fill"></i> Start';
+        }
+    }
 });
