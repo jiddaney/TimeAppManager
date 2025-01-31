@@ -24,4 +24,33 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     };
+
+    // Task Management Functions
+    function addTask(description, priority) {
+        const task = {
+            id: Date.now(),
+            description,
+            priority,
+            completed: false
+        };
+        tasks.push(task);
+        renderTasks();
+        saveTasksToLocalStorage();
+    }
+
+    function deleteTask(taskId) {
+        tasks = tasks.filter(task => task.id !== taskId);
+        renderTasks();
+        saveTasksToLocalStorage();
+    }
+
+    function editTask(taskId) {
+        const task = tasks.find(t => t.id === taskId);
+        if (task) {
+            document.getElementById('editTaskId').value = task.id;
+            document.getElementById('editTaskInput').value = task.description;
+            document.getElementById('editPriorityInput').value = task.priority;
+            editTaskModal.show();
+        }
+    }
 });
