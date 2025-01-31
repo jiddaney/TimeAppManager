@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('startTimer').innerHTML = '<i class="bi bi-play-fill"></i> Start';
         }
     }
+
     function resetTimer() {
         clearInterval(currentTimer.interval);
         currentTimer.minutes = currentTimer.defaultDuration;
@@ -112,11 +113,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('startTimer').innerHTML = '<i class="bi bi-play-fill"></i> Start';
         updateTimerDisplay();
     }
+
     function updateTimerDisplay() {
         const minutes = String(currentTimer.minutes).padStart(2, '0');
         const seconds = String(currentTimer.seconds).padStart(2, '0');
         document.getElementById('timer').textContent = `${minutes}:${seconds}`;
     }
+
+    // Render Tasks
     function renderTasks() {
         const taskList = document.getElementById('taskList');
         taskList.innerHTML = '';
@@ -152,10 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
             taskList.appendChild(taskElement);
         });
     }
-    
+
+    // Local Storage Functions
     function saveTasksToLocalStorage() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
+
     function loadTasksFromLocalStorage() {
         const savedTasks = localStorage.getItem('tasks');
         if (savedTasks) {
@@ -163,6 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
             renderTasks();
         }
     }
+
+    // Event Listeners
     document.getElementById('taskForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const description = document.getElementById('taskInput').value.trim();
@@ -195,6 +203,4 @@ document.addEventListener('DOMContentLoaded', function() {
     window.deleteTask = deleteTask;
     window.editTask = editTask;
     window.toggleTaskComplete = toggleTaskComplete;
-
-
 });
