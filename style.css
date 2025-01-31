@@ -1,0 +1,7 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    margin: 0;
+    height: 100vh;
+    background: url('/media/pexels-fecundap6-359989.jpg') no-repeat center center/cover;
+  }
