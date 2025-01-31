@@ -152,6 +152,10 @@ document.addEventListener('DOMContentLoaded', function() {
             taskList.appendChild(taskElement);
         });
     }
+    
+    function saveTasksToLocalStorage() {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
 
 
 });
