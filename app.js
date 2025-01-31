@@ -156,6 +156,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveTasksToLocalStorage() {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     }
+    function loadTasksFromLocalStorage() {
+        const savedTasks = localStorage.getItem('tasks');
+        if (savedTasks) {
+            tasks = JSON.parse(savedTasks);
+            renderTasks();
+        }
+    }
+
 
 
 });
