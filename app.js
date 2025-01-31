@@ -117,5 +117,41 @@ document.addEventListener('DOMContentLoaded', function() {
         const seconds = String(currentTimer.seconds).padStart(2, '0');
         document.getElementById('timer').textContent = `${minutes}:${seconds}`;
     }
+    function renderTasks() {
+        const taskList = document.getElementById('taskList');
+        taskList.innerHTML = '';
+
+        tasks.forEach(task => {
+            const priorityClass = {
+                high: 'danger',
+                medium: 'warning',
+                low: 'success'
+            }[task.priority];
+
+            const taskElement = document.createElement('div');
+            taskElement.className = `list-group-item d-flex justify-content-between align-items-center ${task.completed ? 'bg-light' : ''}`;
+            taskElement.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <input type="checkbox" class="form-check-input me-2" 
+                        ${task.completed ? 'checked' : ''} 
+                        onclick="window.toggleTaskComplete(${task.id})">
+                    <span class="${task.completed ? 'text-decoration-line-through' : ''}">
+                        ${task.description}
+                        <span class="badge bg-${priorityClass} ms-2">${task.priority}</span>
+                    </span>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-primary" onclick="window.editTask(${task.id})">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="window.deleteTask(${task.id})">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            `;
+            taskList.appendChild(taskElement);
+        });
+    }
+
 
 });
